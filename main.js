@@ -159,10 +159,13 @@ class Solintec extends utils.Adapter {
 
     async _connectWithRetry() {
         try {
+            // TCP-level connect only. info.connection / lastError / consecutiveErrors are
+            // deliberately NOT touched here: a device can accept the TCP handshake on port
+            // 502 and still never answer a Modbus request (e.g. Modbus TCP disabled in the
+            // inverter's own settings), so "connected" must only mean "a register read
+            // actually succeeded" - see _poll(). Resetting the error counter here would
+            // also defeat the reconnect backoff, since every reconnect would zero it.
             await this.modbus.connect();
-            await this.setStateAsync("info.connection", true, true);
-            await this.setStateAsync("info.lastError", "", true);
-            this.consecutiveErrors = 0;
         } catch (error) {
             await this.setStateAsync("info.connection", false, true);
             await this.setStateAsync("info.lastError", error.message, true);
@@ -222,6 +225,7 @@ class Solintec extends utils.Adapter {
 
         await this.setStateAsync("info.connection", true, true);
         await this.setStateAsync("info.lastSuccess", Date.now(), true);
+        await this.setStateAsync("info.lastError", "", true);
         this.consecutiveErrors = 0;
     }
 

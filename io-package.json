@@ -1,8 +1,21 @@
 {
     "common": {
-        "name": "solintec",
-        "version": "0.1.0",
+        "name": "solinteg",
+        "version": "0.1.1",
         "news": {
+            "0.1.1": {
+                "en": "Renamed from \"solintec\" to \"solinteg\" (the manufacturer is Solinteg; the old name was a typo). Install iobroker.solinteg, create an instance and copy the settings; the old package is deprecated. Fix: info.connection is only set to true after a real Modbus response.",
+                "de": "Umbenannt von \"solintec\" in \"solinteg\" (der Hersteller heisst Solinteg, der alte Name war ein Tippfehler). iobroker.solinteg installieren, Instanz anlegen und Einstellungen übernehmen; das alte Paket ist veraltet. Fix: info.connection wird erst nach einer echten Modbus-Antwort auf true gesetzt.",
+                "ru": "Renamed from solintec to solinteg. Fix: info.connection is only true after a real Modbus response.",
+                "pt": "Renamed from solintec to solinteg. Fix: info.connection is only true after a real Modbus response.",
+                "nl": "Renamed from solintec to solinteg. Fix: info.connection is only true after a real Modbus response.",
+                "fr": "Renamed from solintec to solinteg. Fix: info.connection is only true after a real Modbus response.",
+                "it": "Renamed from solintec to solinteg. Fix: info.connection is only true after a real Modbus response.",
+                "es": "Renamed from solintec to solinteg. Fix: info.connection is only true after a real Modbus response.",
+                "pl": "Renamed from solintec to solinteg. Fix: info.connection is only true after a real Modbus response.",
+                "uk": "Renamed from solintec to solinteg. Fix: info.connection is only true after a real Modbus response.",
+                "zh-cn": "Renamed from solintec to solinteg. Fix: info.connection is only true after a real Modbus response."
+            },
             "0.1.0": {
                 "en": "Initial release: reads PV, grid/meter, and battery values from a Solinteg MHT-25~50K-100 hybrid inverter (with Dyness STACK100 battery attached via CAN/RS485) over local Modbus TCP. Optional EMS write access (charge/discharge power, working mode, limits) is disabled by default and must be explicitly enabled in the instance configuration.",
                 "de": "Erstveröffentlichung: liest PV-, Netz-/Zähler- und Batteriewerte eines Solinteg MHT-25~50K-100 Hybrid-Wechselrichters (mit Dyness STACK100 Akku über CAN/RS485) via lokalem Modbus TCP. Optionaler EMS-Schreibzugriff (Lade-/Entladeleistung, Betriebsmodus, Limits) ist standardmäßig deaktiviert und muss in der Instanzkonfiguration explizit aktiviert werden.",
@@ -50,10 +63,10 @@
             "license": "MIT"
         },
         "platform": "Javascript/Node.js",
-        "icon": "solintec.png",
+        "icon": "solinteg.png",
         "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/bueste/ioBroker.solintec/main/admin/solintec.png",
-        "readme": "https://github.com/bueste/ioBroker.solintec/blob/main/README.md",
+        "extIcon": "https://raw.githubusercontent.com/bueste/ioBroker.solinteg/main/admin/solinteg.png",
+        "readme": "https://github.com/bueste/ioBroker.solinteg/blob/main/README.md",
         "loglevel": "info",
         "mode": "daemon",
         "type": "energy",

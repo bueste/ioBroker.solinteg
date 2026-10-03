@@ -1,10 +1,10 @@
-![Logo](admin/solintec.png)
+![Logo](admin/solinteg.png)
 
-# ioBroker.solintec
+# ioBroker.solinteg
 
-[![NPM version](https://img.shields.io/npm/v/iobroker.solintec.svg)](https://www.npmjs.com/package/iobroker.solintec)
-[![Downloads](https://img.shields.io/npm/dm/iobroker.solintec.svg)](https://www.npmjs.com/package/iobroker.solintec)
-![Test and Release](https://github.com/bueste/ioBroker.solintec/actions/workflows/test-and-release.yml/badge.svg)
+[![NPM version](https://img.shields.io/npm/v/iobroker.solinteg.svg)](https://www.npmjs.com/package/iobroker.solinteg)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.solinteg.svg)](https://www.npmjs.com/package/iobroker.solinteg)
+![Test and Release](https://github.com/bueste/ioBroker.solinteg/actions/workflows/test-and-release.yml/badge.svg)
 
 Reads PV, grid/meter and battery data from **Solinteg hybrid inverters** with any attached battery, over **local Modbus TCP**. No cloud account, no internet access required.
 
@@ -56,12 +56,12 @@ Dyness battery cell-level detail beyond min/max cell voltage (16 individual cell
 
 ## Installation
 
-Once this adapter is listed in the official ioBroker adapter repository, install it the normal way: **Admin -> Adapters -> search for "solintec" -> install**.
+Once this adapter is listed in the official ioBroker adapter repository, install it the normal way: **Admin -> Adapters -> search for "solinteg" -> install**.
 
 Until then, an ioBroker administrator can add it manually on the ioBroker host:
 
 ```
-iobroker url iobroker.solintec
+iobroker url iobroker.solinteg
 ```
 
 ## Configuration
@@ -79,32 +79,32 @@ iobroker url iobroker.solintec
 ## Object/state structure
 
 ```
-solintec.0.info.connection                 Inverter reachable (bool)
-solintec.0.info.lastSuccess                Timestamp of the last successful poll
-solintec.0.info.lastError                  Last error message
+solinteg.0.info.connection                 Inverter reachable (bool)
+solinteg.0.info.lastSuccess                Timestamp of the last successful poll
+solinteg.0.info.lastError                  Last error message
 
-solintec.0.info.serialNumber / .firmwareVersion
-solintec.0.diag.inverterStatus / .faultFlags1-3 / .radiatorTemperature
+solinteg.0.info.serialNumber / .firmwareVersion
+solinteg.0.diag.inverterStatus / .faultFlags1-3 / .radiatorTemperature
 
-solintec.0.pv.string1-4.voltage / .current / .power
-solintec.0.pv.totalPower
+solinteg.0.pv.string1-4.voltage / .current / .power
+solinteg.0.pv.totalPower
 
-solintec.0.grid.acPower / .frequency
-solintec.0.grid.voltageL1-3 / .currentL1-3
+solinteg.0.grid.acPower / .frequency
+solinteg.0.grid.voltageL1-3 / .currentL1-3
 
-solintec.0.meter.power / .powerL1-3
-solintec.0.meter.gridImportTotal / .gridExportTotal
+solinteg.0.meter.power / .powerL1-3
+solinteg.0.meter.gridImportTotal / .gridExportTotal
 
-solintec.0.battery.voltage / .current / .power / .soc / .soh / .temperature
-solintec.0.battery.minCellVoltage / .maxCellVoltage (+ their cell IDs)
-solintec.0.battery.chargeLimit / .dischargeLimit
-solintec.0.battery.chargeToday / .chargeTotal / .dischargeToday / .dischargeTotal
-solintec.0.battery.manufacturer / .ratedCapacity
+solinteg.0.battery.voltage / .current / .power / .soc / .soh / .temperature
+solinteg.0.battery.minCellVoltage / .maxCellVoltage (+ their cell IDs)
+solinteg.0.battery.chargeLimit / .dischargeLimit
+solinteg.0.battery.chargeToday / .chargeTotal / .dischargeToday / .dischargeTotal
+solinteg.0.battery.manufacturer / .ratedCapacity
 
-solintec.0.energy.pvGenerationToday / .pvGenerationTotal
-solintec.0.energy.houseConsumptionToday / .houseConsumptionTotal
+solinteg.0.energy.pvGenerationToday / .pvGenerationTotal
+solinteg.0.energy.houseConsumptionToday / .houseConsumptionTotal
 
-solintec.0.ems.*                           EMS control registers, see below
+solinteg.0.ems.*                           EMS control registers, see below
 ```
 
 All PV/grid/meter/battery power-flow states are polled at the fast interval; energy counters, diagnostics and EMS registers are polled at the slow interval.
@@ -164,6 +164,11 @@ Pull requests are welcome, especially to verify/correct register addresses again
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+
+### 0.1.1 (2026-10-03)
+
+- Renamed the adapter from "solintec" to "solinteg" (the npm package, repository and instance were misspelled; the manufacturer is Solinteg). The old package `iobroker.solintec` is deprecated. Migration: install `iobroker.solinteg`, create an instance, copy the settings, remove the old `solintec` instance.
+- Fix: `info.connection` is only set to true after a real Modbus response, no longer merely because the TCP connection could be opened.
 
 ### 0.1.0 (2026-08-15)
 

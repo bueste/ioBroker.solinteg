@@ -9,12 +9,12 @@ const MIN_POLL_INTERVAL_SEC = 3;
 const MAX_CONSECUTIVE_ERRORS_BEFORE_RECONNECT = 3;
 const MAX_BACKOFF_SEC = 60;
 
-class Solintec extends utils.Adapter {
+class Solinteg extends utils.Adapter {
     /**
      * @param {Partial<utils.AdapterOptions>} [options]
      */
     constructor(options) {
-        super({ ...options, name: "solintec" });
+        super({ ...options, name: "solinteg" });
 
         this.on("ready", this.onReady.bind(this));
         this.on("stateChange", this.onStateChange.bind(this));
@@ -334,7 +334,7 @@ class Solintec extends utils.Adapter {
 }
 
 if (require.main !== module) {
-    module.exports = (options) => new Solintec(options);
+    module.exports = (options) => new Solinteg(options);
 } else {
-    new Solintec();
+    new Solinteg();
 }

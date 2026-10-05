@@ -6,7 +6,7 @@
     "port": "Port",
     "portHelp": "Modbus TCP port, usually 502.",
     "unitId": "Unit ID",
-    "unitIdHelp": "Modbus slave/unit ID of the inverter, usually 1.",
+    "unitIdHelp": "Modbus unit ID of the inverter. Default 255 (Solinteg MHT inverters over Modbus TCP). Valid range: 0-255.",
     "requestTimeout": "Request timeout (s)",
     "requestTimeoutHelp": "Timeout for a single Modbus request, in seconds.",
     "pollingTab": "Polling",

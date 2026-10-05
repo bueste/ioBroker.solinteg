@@ -47,10 +47,7 @@ If your device uses the same register family but isn't listed here, please open 
 
 Register addresses in [`lib/registers.js`](lib/registers.js) are sourced from the official Solinteg Modbus TCP protocol documentation, cross-checked against [`wills106/homeassistant-solax-modbus`](https://github.com/wills106/homeassistant-solax-modbus) (`custom_components/solax_modbus/plugin_solinteg.py`), which documents the identical INTEG-M register family also used by Wattsonic and M-TEC Energy Butler rebrands.
 
-**These addresses have not yet been verified against real hardware.** Before relying on this adapter, check the first poll's results carefully, in particular:
-
-- Byte/word order for `u32`/`s32` registers (PV power, AC power, battery power, energy totals)
-- The exact location and effect of the EMS control registers (`50xxx`/`52xxx` block) before enabling [EMS write access](#ems-write-access-controlling-the-inverterbattery)
+**Verified on 2026-10-05 against a real MHT-25~50K-100 (unit ID 255, Dyness STACK100 battery):** every register of the map answers, the 32-bit word order (high word first) and all scales are confirmed by plausible values (e.g. AC power -3601 W against battery power -3600 W). The PV registers could not be checked with real production yet (no PV connected at the time). The EMS control registers (`50xxx`/`52xxx` block) read back correctly, but their effect when WRITING has not been tested - check it carefully before enabling [EMS write access](#ems-write-access-controlling-the-inverterbattery).
 
 Dyness battery cell-level detail beyond min/max cell voltage (16 individual cell voltages per module) is **not** available over Modbus at the inverter - only min/max cell voltage and their cell IDs are exposed there. Full per-cell detail requires the separate Dyness Cloud API/MQTT (`ems.dyness.com` Developer Center), which this adapter does not implement.
 
@@ -70,7 +67,7 @@ iobroker url iobroker.solinteg
 | --- | --- | --- |
 | Connection | Host / IP address | IP or hostname of the inverter (or Modbus TCP/RTU gateway) |
 | Connection | Port | Modbus TCP port, usually 502 |
-| Connection | Unit ID | Modbus slave/unit ID, usually 1; 0-255 are accepted (over Modbus TCP, 255 is used by some devices) |
+| Connection | Unit ID | Modbus unit ID, default 255 (Solinteg MHT inverters over Modbus TCP); 0-255 are accepted |
 | Connection | Request timeout | Timeout per Modbus request, in seconds |
 | Polling | Fast poll interval | How often power/flow values (PV, grid, battery) are read (default 5s) |
 | Polling | Slow poll interval | How often energy counters and diagnostics are read (default 30s) |
@@ -83,8 +80,9 @@ solinteg.0.info.connection                 Inverter reachable (bool)
 solinteg.0.info.lastSuccess                Timestamp of the last successful poll
 solinteg.0.info.lastError                  Last error message
 
-solinteg.0.info.serialNumber / .firmwareVersion
-solinteg.0.diag.inverterStatus / .faultFlags1-3 / .radiatorTemperature
+solinteg.0.info.serialNumber / .firmwareVersion (text, e.g. V10.6.4.4-3.10.13.0)
+solinteg.0.diag.inverterStatus / .faultFlags1-3 / .operationFlags / .armFaultFlags1-2
+solinteg.0.diag.radiatorTemperature / .temperatureR-T
 
 solinteg.0.pv.string1-4.voltage / .current / .power
 solinteg.0.pv.totalPower
@@ -93,7 +91,8 @@ solinteg.0.grid.acPower / .frequency
 solinteg.0.grid.voltageL1-3 / .currentL1-3
 
 solinteg.0.meter.power / .powerL1-3
-solinteg.0.meter.gridImportTotal / .gridExportTotal
+solinteg.0.meter.gridImportTotal / .gridExportTotal / .gridImportToday / .gridExportToday
+solinteg.0.grid.backupPower
 
 solinteg.0.battery.voltage / .current / .power / .soc / .soh / .temperature
 solinteg.0.battery.minCellVoltage / .maxCellVoltage (+ their cell IDs)
@@ -102,6 +101,7 @@ solinteg.0.battery.chargeToday / .chargeTotal / .dischargeToday / .dischargeTota
 solinteg.0.battery.manufacturer / .ratedCapacity
 
 solinteg.0.energy.pvGenerationToday / .pvGenerationTotal
+solinteg.0.energy.acGenerationToday / .acGenerationTotal
 solinteg.0.energy.houseConsumptionToday / .houseConsumptionTotal
 
 solinteg.0.ems.*                           EMS control registers, see below
@@ -164,6 +164,12 @@ Pull requests are welcome, especially to verify/correct register addresses again
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+
+### 0.1.3 (2026-10-05)
+
+- The default Modbus unit ID is now 255 (Solinteg MHT over Modbus TCP), not 1.
+- Verified against a real MHT-25~50K-100: all 73 registers of the map answer, 32-bit word order and all scales confirmed. Fixes: `ems.chargeCutoffSoc` is read in 0.1 % but written in whole percent; the min/max of writable registers is checked in the unit of the state (before: against the raw register value, which rejected valid writes, e.g. 50 kW for a 0.1 kW register); `ems.offGridSwitch` no longer reports `true` when the register holds 0xFFFF (no command pending); state ranges are no longer published as `common.min/max` (they caused a warning on every poll for values the inverter legitimately reports outside the write range, e.g. import limit 650 kW); `info.firmwareVersion` is now text (`V10.6.4.4-3.10.13.0`).
+- New states: `energy.acGenerationToday/Total`, `diag.temperatureR/S/T`, `diag.operationFlags`, `diag.armFaultFlags1/2`, `grid.backupPower`, `meter.gridExportToday/gridImportToday`, and the EMS settings `ems.upsFunction`, `ems.gridUnbalancedOutput`, `ems.batteryProtectionRelax`, `ems.batterySocProtectionOnGrid/OffGrid`, `ems.acCtrlPhaseA/B/CPower` (writable only with EMS write access).
 
 ### 0.1.2 (2026-10-05)
 

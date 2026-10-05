@@ -16,16 +16,16 @@ describe("parseUnitId", () => {
         expect(parseUnitId("0")).to.equal(0);
     });
 
-    it("falls back to 1 when unset or empty", () => {
-        expect(parseUnitId(undefined)).to.equal(1);
-        expect(parseUnitId(null)).to.equal(1);
-        expect(parseUnitId("")).to.equal(1);
+    it("falls back to the default 255 when unset or empty", () => {
+        expect(parseUnitId(undefined)).to.equal(255);
+        expect(parseUnitId(null)).to.equal(255);
+        expect(parseUnitId("")).to.equal(255);
     });
 
-    it("falls back to 1 for out-of-range or non-integer values", () => {
-        expect(parseUnitId(256)).to.equal(1);
-        expect(parseUnitId(-1)).to.equal(1);
-        expect(parseUnitId(1.5)).to.equal(1);
-        expect(parseUnitId("abc")).to.equal(1);
+    it("falls back to the default 255 for out-of-range or non-integer values", () => {
+        expect(parseUnitId(256)).to.equal(255);
+        expect(parseUnitId(-1)).to.equal(255);
+        expect(parseUnitId(1.5)).to.equal(255);
+        expect(parseUnitId("abc")).to.equal(255);
     });
 });

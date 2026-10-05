@@ -4,7 +4,7 @@ const { expect } = require("chai");
 const { registers, registersById } = require("../../lib/registers");
 const { ModbusClient } = require("../../lib/modbusClient");
 
-const VALID_TYPES = new Set(["u16", "s16", "u32", "s32", "str", "map", "bool"]);
+const VALID_TYPES = new Set(["u16", "s16", "u32", "s32", "str", "fw", "map", "bool"]);
 const VALID_GROUPS = new Set(["fast", "slow"]);
 
 // Roles actually used in registers.js, each checked against the official ioBroker

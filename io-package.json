@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "solinteg",
-        "version": "0.1.2",
+        "version": "0.1.3",
         "news": {
+            "0.1.3": {
+                "en": "Default Modbus unit ID is now 255. Checked against a real MHT-25~50K-100: all registers answer. Fixes: charge cutoff SOC scale, range check of writable registers, off-grid switch no longer reports true without a command, firmware shown as text, no more out-of-range warnings on every poll. New states: AC generation, phase temperatures, operation/ARM fault flags, backup power, grid import/export today, additional EMS settings.",
+                "de": "Standard-Modbus-Unit-ID ist jetzt 255. Gegen einen echten MHT-25~50K-100 geprüft: alle Register antworten. Fixes: Skalierung der Ladeabschaltung (SOC), Bereichsprüfung beschreibbarer Register, Off-Grid-Schalter meldet ohne Befehl nicht mehr true, Firmware als Text, keine Bereichswarnungen mehr bei jedem Poll. Neue States: AC-Erzeugung, Phasentemperaturen, Betriebs-/ARM-Fehlerflags, Backup-Leistung, Netzbezug/-einspeisung heute, weitere EMS-Einstellungen.",
+                "ru": "Default Modbus unit ID is now 255; register fixes and new states.",
+                "pt": "Default Modbus unit ID is now 255; register fixes and new states.",
+                "nl": "Default Modbus unit ID is now 255; register fixes and new states.",
+                "fr": "Default Modbus unit ID is now 255; register fixes and new states.",
+                "it": "Default Modbus unit ID is now 255; register fixes and new states.",
+                "es": "Default Modbus unit ID is now 255; register fixes and new states.",
+                "pl": "Default Modbus unit ID is now 255; register fixes and new states.",
+                "uk": "Default Modbus unit ID is now 255; register fixes and new states.",
+                "zh-cn": "Default Modbus unit ID is now 255; register fixes and new states."
+            },
             "0.1.2": {
                 "en": "Fix: the Modbus unit ID can now be set to any value from 0 to 255 (the admin field was limited to 1-247 and refused 255; 0 was treated as unset).",
                 "de": "Fix: Die Modbus-Unit-ID kann jetzt auf jeden Wert von 0 bis 255 gesetzt werden (das Admin-Feld war auf 1-247 begrenzt und lehnte 255 ab; 0 wurde als nicht gesetzt behandelt).",
@@ -95,7 +108,7 @@
     "native": {
         "host": "",
         "port": 502,
-        "unitId": 1,
+        "unitId": 255,
         "requestTimeout": 5,
         "fastPollInterval": 5,
         "slowPollInterval": 30,

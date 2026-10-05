@@ -5,6 +5,7 @@ const { ModbusClient } = require("./lib/modbusClient");
 const { buildBlocks } = require("./lib/blocks");
 const { registers, registersById } = require("./lib/registers");
 const { parseUnitId } = require("./lib/config");
+const { readValue, toRawValue } = require("./lib/convert");
 
 const MIN_POLL_INTERVAL_SEC = 3;
 const MAX_CONSECUTIVE_ERRORS_BEFORE_RECONNECT = 3;
@@ -126,7 +127,7 @@ class Solinteg extends utils.Adapter {
 
         for (const def of registers) {
             let objectType = "number";
-            if (def.type === "str") {
+            if (def.type === "str" || def.type === "fw") {
                 objectType = "string";
             } else if (def.type === "bool") {
                 objectType = "boolean";
@@ -144,12 +145,10 @@ class Solinteg extends utils.Adapter {
             if (def.type === "map" && def.map) {
                 common.states = { ...def.map };
             }
-            if (def.write && typeof def.min === "number") {
-                common.min = def.min;
-            }
-            if (def.write && typeof def.max === "number") {
-                common.max = def.max;
-            }
+            // def.min/def.max are deliberately NOT published as common.min/max: they are the range for
+            // WRITING, but the inverter may report values outside it (e.g. import limit 650 kW when
+            // the limit is off, charge cutoff 100 %), and js-controller warns on every such update.
+            // The range is enforced in onStateChange() instead.
             await this.extendObjectAsync(def.id, {
                 type: "state",
                 common,
@@ -216,11 +215,11 @@ class Solinteg extends utils.Adapter {
                 const offset = def.address - block.startAddress;
                 const length = ModbusClient.registerLength(def);
                 const slice = words.slice(offset, offset + length);
-                let value = ModbusClient.decode(slice, def.type);
-                if (typeof value === "number" && def.scale && def.scale !== 1) {
-                    value = Math.round(value * def.scale * 1000) / 1000;
+                const converted = readValue(def, slice);
+                if (converted.skip) {
+                    continue;
                 }
-                await this.setStateAsync(def.id, value, true);
+                await this.setStateAsync(def.id, converted.value, true);
             }
         }
 
@@ -285,28 +284,7 @@ class Solinteg extends utils.Adapter {
         }
 
         try {
-            let rawValue = state.val;
-            if (typeof rawValue === "number" && def.scale && def.scale !== 1) {
-                rawValue = Math.round(rawValue / def.scale);
-            }
-            if (
-                def.write &&
-                typeof def.min === "number" &&
-                rawValue < def.min
-            ) {
-                throw new Error(
-                    `Value ${rawValue} is below minimum ${def.min}`,
-                );
-            }
-            if (
-                def.write &&
-                typeof def.max === "number" &&
-                rawValue > def.max
-            ) {
-                throw new Error(
-                    `Value ${rawValue} is above maximum ${def.max}`,
-                );
-            }
+            const rawValue = toRawValue(def, state.val);
             const words = ModbusClient.encode(rawValue, def.type);
             await this.modbus.writeHoldingRegisters(def.address, words);
             await this.setStateAsync(id, state.val, true);

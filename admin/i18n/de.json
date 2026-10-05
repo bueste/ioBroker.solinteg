@@ -6,7 +6,7 @@
     "port": "Port",
     "portHelp": "Modbus-TCP-Port, üblicherweise 502.",
     "unitId": "Unit ID",
-    "unitIdHelp": "Modbus-Slave-/Unit-ID des Wechselrichters, üblicherweise 1. Gültiger Bereich bei Modbus TCP: 0-255 (z. B. 255 bei Geräten, die das verwenden).",
+    "unitIdHelp": "Modbus-Unit-ID des Wechselrichters. Standard 255 (Solinteg MHT-Wechselrichter über Modbus TCP). Gültiger Bereich: 0-255.",
     "requestTimeout": "Timeout pro Anfrage (s)",
     "requestTimeoutHelp": "Timeout für eine einzelne Modbus-Anfrage, in Sekunden.",
     "pollingTab": "Abfrage-Intervalle",

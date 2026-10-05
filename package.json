@@ -1,6 +1,6 @@
 {
     "name": "iobroker.solinteg",
-    "version": "0.1.7",
+    "version": "0.1.8",
     "description": "ioBroker adapter for Solinteg hybrid inverters (MHT series and INTEG-M-compatible rebrands such as Wattsonic and M-TEC Energy Butler) with any attached battery (e.g. Dyness STACK100), via local Modbus TCP.",
     "author": "Stefan Bühler <iobroker@mailcarrier.ch>",
     "homepage": "https://github.com/bueste/ioBroker.solinteg",

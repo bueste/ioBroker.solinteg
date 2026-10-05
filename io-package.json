@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "solinteg",
-        "version": "0.1.7",
+        "version": "0.1.8",
         "news": {
+            "0.1.8": {
+                "en": "Fix: the object tree now contains a channel object for every path segment (pv.string1 to pv.string4 were missing).",
+                "de": "Fix: Der Objektbaum enthält jetzt für jedes Pfadsegment ein Kanal-Objekt (pv.string1 bis pv.string4 fehlten).",
+                "ru": "Исправление: дерево объектов теперь содержит канал для каждого сегмента пути (отсутствовали pv.string1–pv.string4).",
+                "pt": "Correção: a árvore de objetos contém agora um canal para cada segmento do caminho (faltavam pv.string1 a pv.string4).",
+                "nl": "Fix: de objectboom bevat nu een kanaalobject voor elk padsegment (pv.string1 t/m pv.string4 ontbraken).",
+                "fr": "Correction : l'arborescence des objets contient désormais un canal pour chaque segment de chemin (pv.string1 à pv.string4 manquaient).",
+                "it": "Correzione: l'albero degli oggetti contiene ora un canale per ogni segmento del percorso (mancavano da pv.string1 a pv.string4).",
+                "es": "Corrección: el árbol de objetos contiene ahora un canal para cada segmento de la ruta (faltaban pv.string1 a pv.string4).",
+                "pl": "Poprawka: drzewo obiektów zawiera teraz kanał dla każdego segmentu ścieżki (brakowało pv.string1 do pv.string4).",
+                "uk": "Виправлення: дерево об'єктів тепер містить канал для кожного сегмента шляху (бракувало pv.string1–pv.string4).",
+                "zh-cn": "修复：对象树现在为每个路径段包含一个通道对象（此前缺少 pv.string1 至 pv.string4）。"
+            },
             "0.1.7": {
                 "en": "README: link to the manufacturer website (requirement of the ioBroker repository).",
                 "de": "README: Link zur Herstellerseite (Anforderung des ioBroker-Repositories).",

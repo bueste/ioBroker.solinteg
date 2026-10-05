@@ -167,6 +167,10 @@ Pull requests are welcome, especially to verify/correct register addresses again
     ### **WORK IN PROGRESS**
 -->
 
+### 0.1.8 (2026-10-05)
+
+- Fix: the object tree now contains a channel object for every path segment (`pv.string1` to `pv.string4` were missing, reported by the ioBroker object structure check, E3009).
+
 ### 0.1.7 (2026-10-05)
 
 - README: link to the manufacturer website (requirement of the ioBroker repository).

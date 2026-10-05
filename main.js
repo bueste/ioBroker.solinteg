@@ -6,6 +6,7 @@ const { buildBlocks } = require("./lib/blocks");
 const { registers, registersById } = require("./lib/registers");
 const { parseUnitId } = require("./lib/config");
 const { readValue, toRawValue } = require("./lib/convert");
+const { channelPaths, channelName } = require("./lib/channels");
 
 const MIN_POLL_INTERVAL_SEC = 3;
 const MAX_CONSECUTIVE_ERRORS_BEFORE_RECONNECT = 3;
@@ -112,15 +113,11 @@ class Solinteg extends utils.Adapter {
      * setObject that would wipe existing object properties.
      */
     async _ensureObjects() {
-        const groups = new Set();
-        for (const def of registers) {
-            const channel = def.id.split(".")[0];
-            groups.add(channel);
-        }
-        for (const channel of groups) {
+        // One channel per path segment, so that pv.string1.voltage has both "pv" and "pv.string1".
+        for (const channel of channelPaths(registers.map((def) => def.id))) {
             await this.extendObjectAsync(channel, {
                 type: "channel",
-                common: { name: channel },
+                common: { name: channelName(channel) },
                 native: {},
             });
         }

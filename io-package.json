@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "solinteg",
-        "version": "0.1.4",
+        "version": "0.1.5",
         "news": {
+            "0.1.5": {
+                "en": "Fix: a register that holds its \"no value\" marker (the off-grid command register reads 0xFFFF when no command is pending) now clears its state instead of keeping a stale value.",
+                "de": "Fix: Ein Register mit seinem \"kein Wert\"-Marker (das Off-Grid-Befehlsregister liest 0xFFFF, solange kein Befehl ansteht) leert seinen State jetzt, statt einen veralteten Wert zu behalten.",
+                "ru": "Fix: a register holding its no-value marker now clears its state.",
+                "pt": "Fix: a register holding its no-value marker now clears its state.",
+                "nl": "Fix: a register holding its no-value marker now clears its state.",
+                "fr": "Fix: a register holding its no-value marker now clears its state.",
+                "it": "Fix: a register holding its no-value marker now clears its state.",
+                "es": "Fix: a register holding its no-value marker now clears its state.",
+                "pl": "Fix: a register holding its no-value marker now clears its state.",
+                "uk": "Fix: a register holding its no-value marker now clears its state.",
+                "zh-cn": "Fix: a register holding its no-value marker now clears its state."
+            },
             "0.1.4": {
                 "en": "Fix: states created by an earlier version kept their old min/max limits and still caused out-of-range warnings at startup; the adapter now removes these limits from existing states.",
                 "de": "Fix: Von einer früheren Version angelegte States behielten ihre alten Min/Max-Grenzen und lösten beim Start weiterhin Bereichswarnungen aus; der Adapter entfernt diese Grenzen jetzt aus bestehenden States.",

@@ -165,6 +165,10 @@ Pull requests are welcome, especially to verify/correct register addresses again
     ### **WORK IN PROGRESS**
 -->
 
+### 0.1.5 (2026-10-05)
+
+- Fix: a register that currently holds its "no value" marker (the off-grid command register reads 0xFFFF when no command is pending) now clears its state instead of keeping a stale value (`ems.offGridSwitch` kept showing `true`).
+
 ### 0.1.4 (2026-10-05)
 
 - Fix: states created by an earlier version keep their old `common.min`/`common.max`, which still caused a warning at every start for values the inverter reports outside the write range. The adapter now removes these limits from existing states at startup.

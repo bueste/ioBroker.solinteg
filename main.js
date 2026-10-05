@@ -230,6 +230,9 @@ class Solinteg extends utils.Adapter {
                 const slice = words.slice(offset, offset + length);
                 const converted = readValue(def, slice);
                 if (converted.skip) {
+                    // "no value" marker (e.g. 0xFFFF on a command register): clear the state instead of
+                    // leaving a stale value from an earlier poll or an earlier version.
+                    await this.setStateAsync(def.id, null, true);
                     continue;
                 }
                 await this.setStateAsync(def.id, converted.value, true);

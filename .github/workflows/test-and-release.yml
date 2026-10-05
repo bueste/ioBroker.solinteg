@@ -27,9 +27,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: ioBroker/testing-action-check@v1
+      - uses: ioBroker/testing-action-check@v2
         with:
-          node-version: "22.x"
+          node-version: "24.x"
           lint: true
 
   # Runs adapter tests on all supported node versions and OSes
@@ -40,11 +40,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # Node 18.x/20.x are not supported: the current @iobroker/eslint-config and
-        # ioBroker/testing-action-adapter@v1 toolchain requires Node >=22 (npm ci fails
-        # with engine-strict). Sibling adapters (goodwe-sems, husqvarna-automower-connect)
-        # hit the exact same issue and standardized on >=22 - see engines.node in package.json.
-        node-version: [22.x, 24.x]
+        # Node 18.x/20.x are not supported (engines.node >=22 in package.json). The ioBroker repository
+        # requires tests on the current Node.js versions up to 26.x.
+        node-version: [22.x, 24.x, 26.x]
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
@@ -73,7 +71,7 @@ jobs:
     steps:
       - uses: ioBroker/testing-action-deploy@v1
         with:
-          node-version: "22.x"
+          node-version: "24.x"
           # npm-token is omitted on purpose: uses npm OIDC trusted publishing
           # (https://docs.npmjs.com/trusted-publishers), configured on npmjs.com
           # for this GitHub Actions workflow/environment once the package is set up there.

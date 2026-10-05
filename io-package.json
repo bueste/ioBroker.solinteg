@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "solinteg",
-        "version": "0.1.1",
+        "version": "0.1.2",
         "news": {
+            "0.1.2": {
+                "en": "Fix: the Modbus unit ID can now be set to any value from 0 to 255 (the admin field was limited to 1-247 and refused 255; 0 was treated as unset).",
+                "de": "Fix: Die Modbus-Unit-ID kann jetzt auf jeden Wert von 0 bis 255 gesetzt werden (das Admin-Feld war auf 1-247 begrenzt und lehnte 255 ab; 0 wurde als nicht gesetzt behandelt).",
+                "ru": "Fix: the Modbus unit ID accepts 0-255.",
+                "pt": "Fix: the Modbus unit ID accepts 0-255.",
+                "nl": "Fix: the Modbus unit ID accepts 0-255.",
+                "fr": "Fix: the Modbus unit ID accepts 0-255.",
+                "it": "Fix: the Modbus unit ID accepts 0-255.",
+                "es": "Fix: the Modbus unit ID accepts 0-255.",
+                "pl": "Fix: the Modbus unit ID accepts 0-255.",
+                "uk": "Fix: the Modbus unit ID accepts 0-255.",
+                "zh-cn": "Fix: the Modbus unit ID accepts 0-255."
+            },
             "0.1.1": {
                 "en": "Renamed from \"solintec\" to \"solinteg\" (the manufacturer is Solinteg; the old name was a typo). Install iobroker.solinteg, create an instance and copy the settings; the old package is deprecated. Fix: info.connection is only set to true after a real Modbus response.",
                 "de": "Umbenannt von \"solintec\" in \"solinteg\" (der Hersteller heisst Solinteg, der alte Name war ein Tippfehler). iobroker.solinteg installieren, Instanz anlegen und Einstellungen übernehmen; das alte Paket ist veraltet. Fix: info.connection wird erst nach einer echten Modbus-Antwort auf true gesetzt.",

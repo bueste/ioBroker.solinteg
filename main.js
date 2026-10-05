@@ -4,6 +4,7 @@ const utils = require("@iobroker/adapter-core");
 const { ModbusClient } = require("./lib/modbusClient");
 const { buildBlocks } = require("./lib/blocks");
 const { registers, registersById } = require("./lib/registers");
+const { parseUnitId } = require("./lib/config");
 
 const MIN_POLL_INTERVAL_SEC = 3;
 const MAX_CONSECUTIVE_ERRORS_BEFORE_RECONNECT = 3;
@@ -40,7 +41,7 @@ class Solinteg extends utils.Adapter {
             return;
         }
         const port = Number(this.config.port) || 502;
-        const unitId = Number(this.config.unitId) || 1;
+        const unitId = parseUnitId(this.config.unitId);
         this.enableEmsControl = this.config.enableEmsControl === true;
 
         const fastIntervalSec = Math.max(

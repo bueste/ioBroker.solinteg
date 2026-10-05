@@ -6,7 +6,7 @@
     "port": "Port",
     "portHelp": "Modbus TCP port, usually 502.",
     "unitId": "Unit ID",
-    "unitIdHelp": "Modbus slave/unit ID of the inverter, usually 1.",
+    "unitIdHelp": "Modbus slave/unit ID of the inverter, usually 1. Valid range over Modbus TCP: 0-255 (e.g. 255 for devices that use it).",
     "requestTimeout": "Request timeout (s)",
     "requestTimeoutHelp": "Timeout for a single Modbus request, in seconds.",
     "pollingTab": "Polling",

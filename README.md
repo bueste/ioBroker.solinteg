@@ -70,7 +70,7 @@ iobroker url iobroker.solinteg
 | --- | --- | --- |
 | Connection | Host / IP address | IP or hostname of the inverter (or Modbus TCP/RTU gateway) |
 | Connection | Port | Modbus TCP port, usually 502 |
-| Connection | Unit ID | Modbus slave/unit ID, usually 1 |
+| Connection | Unit ID | Modbus slave/unit ID, usually 1; 0-255 are accepted (over Modbus TCP, 255 is used by some devices) |
 | Connection | Request timeout | Timeout per Modbus request, in seconds |
 | Polling | Fast poll interval | How often power/flow values (PV, grid, battery) are read (default 5s) |
 | Polling | Slow poll interval | How often energy counters and diagnostics are read (default 30s) |
@@ -164,6 +164,10 @@ Pull requests are welcome, especially to verify/correct register addresses again
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+
+### 0.1.2 (2026-10-05)
+
+- Fix: the Modbus unit ID can now be set to any value from 0 to 255 (the admin field was limited to 1-247 and refused 255; 0 was treated as unset).
 
 ### 0.1.1 (2026-10-03)
 

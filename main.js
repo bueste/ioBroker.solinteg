@@ -23,7 +23,9 @@ class Solinteg extends utils.Adapter {
         this.on("stateChange", this.onStateChange.bind(this));
         this.on("unload", this.onUnload.bind(this));
 
-        this.modbus = null;
+        // Placeholder (never connected) so that this.modbus is always a ModbusClient; onReady()
+        // replaces it with the configured one.
+        this.modbus = new ModbusClient({ host: "", port: 502, unitId: 255 });
         this.fastTimer = null;
         this.slowTimer = null;
         this.fastBlocks = [];
@@ -123,6 +125,7 @@ class Solinteg extends utils.Adapter {
         }
 
         for (const def of registers) {
+            /** @type {ioBroker.CommonType} */
             let objectType = "number";
             if (def.type === "str" || def.type === "fw") {
                 objectType = "string";
@@ -292,6 +295,14 @@ class Solinteg extends utils.Adapter {
         if (!this.modbus || !this.modbus.connected) {
             this.log.warn(
                 `Cannot write ${relativeId}: Modbus is not connected.`,
+            );
+            return;
+        }
+
+        // A string (or null) must never reach the register encoder: it would be written as 0.
+        if (typeof state.val !== "number" && typeof state.val !== "boolean") {
+            this.log.warn(
+                `Ignoring write to ${relativeId}: the value must be a number or boolean, got ${state.val === null ? "null" : typeof state.val}.`,
             );
             return;
         }

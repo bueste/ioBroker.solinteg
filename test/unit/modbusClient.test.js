@@ -68,10 +68,12 @@ describe("ModbusClient decode/encode", () => {
     });
 
     it("throws for an unknown decode type", () => {
+        // @ts-expect-error deliberately invalid type
         expect(() => ModbusClient.decode([1], "bogus")).to.throw();
     });
 
     it("throws when encoding a non-writable type (str)", () => {
+        // @ts-expect-error deliberately invalid value
         expect(() => ModbusClient.encode("x", "str")).to.throw();
     });
 });

@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "solinteg",
-        "version": "0.1.8",
+        "version": "0.1.9",
         "news": {
+            "0.1.9": {
+                "en": "Type checking added (typed register map, Modbus client and adapter class). A value that is neither a number nor a boolean written to a writable state is now rejected instead of being written as 0.",
+                "de": "Typprüfung hinzugefügt (typisierte Registerliste, Modbus-Client und Adapterklasse). Ein Wert, der weder Zahl noch Boolean ist, wird beim Schreiben auf einen beschreibbaren State jetzt abgewiesen statt als 0 geschrieben.",
+                "ru": "Добавлена проверка типов (типизированные карта регистров, клиент Modbus и класс адаптера). Значение, не являющееся числом или булевым, при записи в записываемое состояние теперь отклоняется, а не записывается как 0.",
+                "pt": "Verificação de tipos adicionada (mapa de registos, cliente Modbus e classe do adaptador tipados). Um valor que não seja número nem booleano escrito num estado gravável é agora rejeitado em vez de ser escrito como 0.",
+                "nl": "Typecontrole toegevoegd (getypeerde registerlijst, Modbus-client en adapterklasse). Een waarde die geen getal of boolean is, wordt bij schrijven naar een schrijfbare status nu geweigerd in plaats van als 0 geschreven.",
+                "fr": "Vérification des types ajoutée (carte des registres, client Modbus et classe de l'adaptateur typés). Une valeur qui n'est ni un nombre ni un booléen écrite sur un état modifiable est désormais rejetée au lieu d'être écrite comme 0.",
+                "it": "Aggiunto il controllo dei tipi (mappa dei registri, client Modbus e classe dell'adattatore tipizzati). Un valore che non è né un numero né un booleano scritto su uno stato scrivibile viene ora rifiutato invece di essere scritto come 0.",
+                "es": "Se añadió la comprobación de tipos (mapa de registros, cliente Modbus y clase del adaptador tipados). Un valor que no sea número ni booleano escrito en un estado modificable ahora se rechaza en lugar de escribirse como 0.",
+                "pl": "Dodano sprawdzanie typów (otypowana mapa rejestrów, klient Modbus i klasa adaptera). Wartość, która nie jest liczbą ani wartością logiczną, zapisywana do zapisywalnego stanu jest teraz odrzucana zamiast zapisywana jako 0.",
+                "uk": "Додано перевірку типів (типізовані карта регістрів, клієнт Modbus і клас адаптера). Значення, що не є числом чи булевим, під час запису в стан із правом запису тепер відхиляється, а не записується як 0.",
+                "zh-cn": "新增类型检查（寄存器表、Modbus 客户端和适配器类已加类型）。向可写状态写入既非数字也非布尔值的值时，现在会被拒绝，而不是作为 0 写入。"
+            },
             "0.1.8": {
                 "en": "Fix: the object tree now contains a channel object for every path segment (pv.string1 to pv.string4 were missing).",
                 "de": "Fix: Der Objektbaum enthält jetzt für jedes Pfadsegment ein Kanal-Objekt (pv.string1 bis pv.string4 fehlten).",

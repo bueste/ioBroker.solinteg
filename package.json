@@ -1,6 +1,6 @@
 {
     "name": "iobroker.solinteg",
-    "version": "0.1.8",
+    "version": "0.1.9",
     "description": "ioBroker adapter for Solinteg hybrid inverters (MHT series and INTEG-M-compatible rebrands such as Wattsonic and M-TEC Energy Butler) with any attached battery (e.g. Dyness STACK100), via local Modbus TCP.",
     "author": "Stefan Bühler <iobroker@mailcarrier.ch>",
     "homepage": "https://github.com/bueste/ioBroker.solinteg",
@@ -30,6 +30,7 @@
         "test:unit": "mocha test/unit --exit",
         "test:package": "mocha test/package --exit",
         "test": "npm run test:unit && npm run test:package",
+        "check": "tsc --noEmit -p tsconfig.check.json",
         "test:integration": "mocha test/integration --exit",
         "lint": "eslint .",
         "translate": "translate-adapter",
@@ -46,6 +47,10 @@
         "@alcalzone/release-script-plugin-manual-review": "^5.2.0",
         "@iobroker/adapter-dev": "^1.5.0",
         "@iobroker/eslint-config": "^2.3.4",
-        "@iobroker/testing": "^6.3.0"
+        "@iobroker/testing": "^6.3.0",
+        "@iobroker/types": "^7.2.5",
+        "@tsconfig/node22": "^22.0.6",
+        "@types/node": "^22.20.2",
+        "typescript": "~6.0.3"
     }
 }

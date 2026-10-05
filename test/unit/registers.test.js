@@ -70,7 +70,7 @@ describe("registers", () => {
     it("provides a map for every 'map'-typed register", () => {
         for (const def of registers.filter((d) => d.type === "map")) {
             expect(def.map, def.id).to.be.an("object");
-            expect(Object.keys(def.map).length, def.id).to.be.greaterThan(0);
+            expect(Object.keys(def.map || {}).length, def.id).to.be.greaterThan(0);
         }
     });
 
@@ -84,14 +84,14 @@ describe("registers", () => {
         for (const def of registers.filter((d) => d.write && d.type !== "map" && d.type !== "bool")) {
             expect(def.min, `${def.id} missing min`).to.be.a("number");
             expect(def.max, `${def.id} missing max`).to.be.a("number");
-            expect(def.min, def.id).to.be.lessThan(def.max);
+            expect(def.min, def.id).to.be.lessThan(Number(def.max));
         }
     });
 
     it("uses only officially documented ioBroker state roles", () => {
         for (const def of registers) {
             expect(
-                Object.prototype.hasOwnProperty.call(KNOWN_ROLES, def.role),
+                Object.prototype.hasOwnProperty.call(KNOWN_ROLES, String(def.role)),
                 `${def.id}: role "${def.role}" is not in the official ioBroker state-roles list`,
             ).to.be.true;
         }

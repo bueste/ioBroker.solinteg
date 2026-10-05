@@ -167,6 +167,12 @@ Pull requests are welcome, especially to verify/correct register addresses again
     ### **WORK IN PROGRESS**
 -->
 
+### 0.1.9 (2026-10-05)
+
+- Type checking: `npm run check` (tsc with JSDoc types, `tsconfig.json`, `adapter-config.d.ts`) now runs in CI; the register map, the Modbus client and the adapter class are typed.
+- Fix: a value that is neither a number nor a boolean written to a writable state is rejected with a warning (it would have been written to the register as 0).
+- Older changelog entries moved to `CHANGELOG_OLD.md`.
+
 ### 0.1.8 (2026-10-05)
 
 - Fix: the object tree now contains a channel object for every path segment (`pv.string1` to `pv.string4` were missing, reported by the ioBroker object structure check, E3009).
@@ -187,24 +193,10 @@ Pull requests are welcome, especially to verify/correct register addresses again
 
 - Fix: states created by an earlier version keep their old `common.min`/`common.max`, which still caused a warning at every start for values the inverter reports outside the write range. The adapter now removes these limits from existing states at startup.
 
-### 0.1.3 (2026-10-05)
+## Older changes
 
-- The default Modbus unit ID is now 255 (Solinteg MHT over Modbus TCP), not 1.
-- Verified against a real MHT-25~50K-100: all 73 registers of the map answer, 32-bit word order and all scales confirmed. Fixes: `ems.chargeCutoffSoc` is read in 0.1 % but written in whole percent; the min/max of writable registers is checked in the unit of the state (before: against the raw register value, which rejected valid writes, e.g. 50 kW for a 0.1 kW register); `ems.offGridSwitch` no longer reports `true` when the register holds 0xFFFF (no command pending); state ranges are no longer published as `common.min/max` (they caused a warning on every poll for values the inverter legitimately reports outside the write range, e.g. import limit 650 kW); `info.firmwareVersion` is now text (`V10.6.4.4-3.10.13.0`).
-- New states: `energy.acGenerationToday/Total`, `diag.temperatureR/S/T`, `diag.operationFlags`, `diag.armFaultFlags1/2`, `grid.backupPower`, `meter.gridExportToday/gridImportToday`, and the EMS settings `ems.upsFunction`, `ems.gridUnbalancedOutput`, `ems.batteryProtectionRelax`, `ems.batterySocProtectionOnGrid/OffGrid`, `ems.acCtrlPhaseA/B/CPower` (writable only with EMS write access).
+See [CHANGELOG_OLD.md](CHANGELOG_OLD.md) for the changes of versions 0.1.3 and older.
 
-### 0.1.2 (2026-10-05)
-
-- Fix: the Modbus unit ID can now be set to any value from 0 to 255 (the admin field was limited to 1-247 and refused 255; 0 was treated as unset).
-
-### 0.1.1 (2026-10-03)
-
-- Renamed the adapter from "solintec" to "solinteg" (the npm package, repository and instance were misspelled; the manufacturer is Solinteg). The old package `iobroker.solintec` is deprecated. Migration: install `iobroker.solinteg`, create an instance, copy the settings, remove the old `solintec` instance.
-- Fix: `info.connection` is only set to true after a real Modbus response, no longer merely because the TCP connection could be opened.
-
-### 0.1.0 (2026-08-15)
-
-- Initial release: reads PV, grid/meter and battery values from a Solinteg MHT-25~50K-100 hybrid inverter (Dyness STACK100 battery via CAN/RS485) over local Modbus TCP. Optional EMS write access is disabled by default.
 
 ## License
 

@@ -9,6 +9,8 @@ export default [
             "jsdoc/require-jsdoc": "off",
             "jsdoc/require-param-description": "off",
             "jsdoc/require-returns-description": "off",
+            // JSDoc type annotations (@type/@typedef) are used on purpose for "npm run check" (tsc).
+            "jsdoc/check-tag-names": "off",
         },
     },
     {

@@ -200,7 +200,7 @@ Pull requests are welcome, especially to verify/correct register addresses again
 
 MIT License
 
-Copyright (c) 2026 Stefan Bühler
+Copyright (c) 2026 Stefan Bühler <iobroker@mailcarrier.ch>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

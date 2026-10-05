@@ -108,7 +108,7 @@
             "uk": "Зчитує дані PV, мережі/лічильника та батареї гібридних інверторів Solinteg (серія MHT та сумісні з INTEG-M ребрендинги, як-от Wattsonic і M-TEC Energy Butler) з будь-якою підключеною батареєю (наприклад, Dyness STACK100) через локальний Modbus TCP - хмара не потрібна.",
             "zh-cn": "通过本地 Modbus TCP 读取 Solinteg 混合逆变器（MHT 系列及兼容 INTEG-M 的贴牌产品，如 Wattsonic 和 M-TEC Energy Butler）的光伏、电网/电表和电池数据，可连接任意电池（如 Dyness STACK100），无需云服务。"
         },
-        "authors": ["Stefan Bühler"],
+        "authors": ["Stefan Bühler <iobroker@mailcarrier.ch>"],
         "keywords": ["solinteg", "wattsonic", "m-tec", "dyness", "mht", "stack100", "modbus", "hybrid", "inverter", "solar", "battery", "pv"],
         "licenseInformation": {
             "type": "free",

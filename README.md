@@ -165,6 +165,10 @@ Pull requests are welcome, especially to verify/correct register addresses again
     ### **WORK IN PROGRESS**
 -->
 
+### 0.1.6 (2026-10-05)
+
+- Preparation for the ioBroker repository: translations of the admin texts and of the metadata (title, description, news) in all languages, square 512x512 icon, `common.tier`, updated dependencies (`@iobroker/testing` 6, release-script 5, adapter-core 3.4.3), prettier configuration, Dependabot configuration.
+
 ### 0.1.5 (2026-10-05)
 
 - Fix: a register that currently holds its "no value" marker (the off-grid command register reads 0xFFFF when no command is pending) now clears its state instead of keeping a stale value (`ems.offGridSwitch` kept showing `true`).

@@ -1,7 +1,0 @@
-test/
-.github/
-.vscode/
-*.test.js
-.editorconfig
-.releaseconfig.json
-eslint.config.mjs

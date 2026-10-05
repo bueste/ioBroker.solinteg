@@ -30,6 +30,8 @@ Solinteg, Dyness, Wattsonic and M-TEC are trademarks of their respective holders
 
 ## Why this adapter?
 
+Manufacturer and device information: [Solinteg](https://www.solinteg.com) (hybrid inverters and battery energy storage systems).
+
 There is no generic "Solinteg" support in ioBroker. The Solinteg WR speaks openly documented Modbus TCP, so it could in principle be read out with the generic `ioBroker.modbus` adapter and a manually entered register list - but that means re-entering 50+ registers by hand in the admin UI, with no code-level control over scaling, data types or object structure. This adapter instead talks Modbus TCP directly (via `modbus-serial`), the same way [ioBroker.zeptrion](https://github.com/bueste/ioBroker.zeptrion), [ioBroker.goodwe-sems](https://github.com/bueste/ioBroker.goodwe-sems) and [ioBroker.husqvarna-automower-connect](https://github.com/bueste/ioBroker.husqvarna-automower-connect) each talk directly to their respective device/cloud API, giving full control over register mapping, scaling and the resulting object tree - plus the option to actively control the inverter/battery (EMS write access, off by default).
 
 ## Compatibility
@@ -164,6 +166,10 @@ Pull requests are welcome, especially to verify/correct register addresses again
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+
+### 0.1.7 (2026-10-05)
+
+- README: link to the manufacturer website (requirement of the ioBroker repository).
 
 ### 0.1.6 (2026-10-05)
 

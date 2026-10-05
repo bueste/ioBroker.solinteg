@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "solinteg",
-        "version": "0.1.6",
+        "version": "0.1.7",
         "news": {
+            "0.1.7": {
+                "en": "README: link to the manufacturer website (requirement of the ioBroker repository).",
+                "de": "README: Link zur Herstellerseite (Anforderung des ioBroker-Repositories).",
+                "ru": "README: ссылка на сайт производителя (требование репозитория ioBroker).",
+                "pt": "README: ligação para o sítio do fabricante (requisito do repositório ioBroker).",
+                "nl": "README: link naar de website van de fabrikant (vereiste van de ioBroker-repository).",
+                "fr": "README : lien vers le site du fabricant (exigence du dépôt ioBroker).",
+                "it": "README: collegamento al sito del produttore (requisito del repository ioBroker).",
+                "es": "README: enlace al sitio web del fabricante (requisito del repositorio de ioBroker).",
+                "pl": "README: link do strony producenta (wymóg repozytorium ioBroker).",
+                "uk": "README: посилання на сайт виробника (вимога репозиторію ioBroker).",
+                "zh-cn": "README：添加制造商网站链接（ioBroker 仓库的要求）。"
+            },
             "0.1.6": {
                 "en": "Preparation for the ioBroker repository: complete translations, square icon, updated dependencies and tooling.",
                 "de": "Vorbereitung für das ioBroker-Repository: vollständige Übersetzungen, quadratisches Icon, aktualisierte Abhängigkeiten und Werkzeuge.",

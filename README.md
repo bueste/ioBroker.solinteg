@@ -165,6 +165,10 @@ Pull requests are welcome, especially to verify/correct register addresses again
     ### **WORK IN PROGRESS**
 -->
 
+### 0.1.4 (2026-10-05)
+
+- Fix: states created by an earlier version keep their old `common.min`/`common.max`, which still caused a warning at every start for values the inverter reports outside the write range. The adapter now removes these limits from existing states at startup.
+
 ### 0.1.3 (2026-10-05)
 
 - The default Modbus unit ID is now 255 (Solinteg MHT over Modbus TCP), not 1.

@@ -154,6 +154,19 @@ class Solinteg extends utils.Adapter {
                 common,
                 native: {},
             });
+            // extendObject only adds or overwrites keys, it never removes them: objects created by
+            // an earlier version still carry common.min/common.max and would keep the warnings.
+            const existing = await this.getObjectAsync(def.id);
+            if (
+                existing &&
+                existing.common &&
+                (existing.common.min !== undefined ||
+                    existing.common.max !== undefined)
+            ) {
+                delete existing.common.min;
+                delete existing.common.max;
+                await this.setObjectAsync(def.id, existing);
+            }
         }
     }
 

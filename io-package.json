@@ -93,32 +93,6 @@
                 "pl": "Domyślny identyfikator jednostki Modbus to teraz 255. Wszystkie rejestry sprawdzono na prawdziwym sprzęcie; poprawki skalowania, kontroli zakresów i przełącznika off-grid; oprogramowanie sprzętowe jako tekst; nowe stany dla generacji AC, temperatur faz, flag, mocy zasilania awaryjnego i ustawień EMS.",
                 "uk": "Ідентифікатор пристрою Modbus за замовчуванням тепер 255. Усі регістри перевірено на реальному обладнанні; виправлено масштабування, перевірку діапазонів і перемикач off-grid; прошивка відображається текстом; нові стани для AC-генерації, температур фаз, прапорців, резервної потужності та налаштувань EMS.",
                 "zh-cn": "默认 Modbus 单元 ID 现为 255。所有寄存器均已在真实硬件上验证；修复了缩放、范围检查和离网开关；固件以文本显示；新增交流发电、相温度、标志、备用电源功率和 EMS 设置的状态。"
-            },
-            "0.1.2": {
-                "en": "Fix: the Modbus unit ID can now be set to any value from 0 to 255.",
-                "de": "Fix: Die Modbus-Unit-ID kann jetzt auf jeden Wert von 0 bis 255 gesetzt werden.",
-                "ru": "Исправление: идентификатор устройства Modbus теперь можно задать любым значением от 0 до 255.",
-                "pt": "Correção: o ID de unidade Modbus pode agora ser definido para qualquer valor de 0 a 255.",
-                "nl": "Fix: de Modbus-unit-ID kan nu op elke waarde van 0 tot 255 worden ingesteld.",
-                "fr": "Correction : l'ID d'unité Modbus peut désormais être réglé sur n'importe quelle valeur de 0 à 255.",
-                "it": "Correzione: l'ID unità Modbus può ora essere impostato su qualsiasi valore da 0 a 255.",
-                "es": "Corrección: el ID de unidad Modbus ahora puede establecerse en cualquier valor de 0 a 255.",
-                "pl": "Poprawka: identyfikator jednostki Modbus można teraz ustawić na dowolną wartość od 0 do 255.",
-                "uk": "Виправлення: ідентифікатор пристрою Modbus тепер можна встановити на будь-яке значення від 0 до 255.",
-                "zh-cn": "修复：现在可以将 Modbus 单元 ID 设置为 0 到 255 之间的任意值。"
-            },
-            "0.1.1": {
-                "en": "Renamed from \"solintec\" to \"solinteg\" (typo in the original name). Fix: info.connection is only set after a real Modbus response.",
-                "de": "Umbenannt von \"solintec\" in \"solinteg\" (Tippfehler im ursprünglichen Namen). Fix: info.connection wird erst nach einer echten Modbus-Antwort gesetzt.",
-                "ru": "Переименовано из «solintec» в «solinteg» (опечатка в исходном названии). Исправление: info.connection устанавливается только после реального ответа Modbus.",
-                "pt": "Renomeado de \"solintec\" para \"solinteg\" (erro de digitação no nome original). Correção: info.connection só é definido após uma resposta Modbus real.",
-                "nl": "Hernoemd van \"solintec\" naar \"solinteg\" (typefout in de oorspronkelijke naam). Fix: info.connection wordt pas gezet na een echt Modbus-antwoord.",
-                "fr": "Renommé de « solintec » en « solinteg » (faute de frappe dans le nom d'origine). Correction : info.connection n'est défini qu'après une vraie réponse Modbus.",
-                "it": "Rinominato da «solintec» a «solinteg» (errore di battitura nel nome originale). Correzione: info.connection viene impostato solo dopo una vera risposta Modbus.",
-                "es": "Renombrado de «solintec» a «solinteg» (error tipográfico en el nombre original). Corrección: info.connection solo se establece tras una respuesta Modbus real.",
-                "pl": "Zmieniono nazwę z „solintec” na „solinteg” (literówka w pierwotnej nazwie). Poprawka: info.connection jest ustawiane dopiero po rzeczywistej odpowiedzi Modbus.",
-                "uk": "Перейменовано з «solintec» на «solinteg» (одруківка в початковій назві). Виправлення: info.connection встановлюється лише після реальної відповіді Modbus.",
-                "zh-cn": "已从“solintec”重命名为“solinteg”（原名称有拼写错误）。修复：仅在收到真实的 Modbus 响应后才设置 info.connection。"
             }
         },
         "titleLang": {

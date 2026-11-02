@@ -74,7 +74,10 @@ describe("Solinteg adapter lifecycle", () => {
         const polled = [];
         adapter._poll = async (group) => {
             polled.push(group);
-            expect(adapter.timers, "no timer may be pending while a poll runs").to.have.length(0);
+            expect(
+                adapter.timers,
+                "no timer may be pending while a poll runs",
+            ).to.have.length(0);
         };
         await adapter._pollCycle();
         expect(adapter.timers).to.have.length(1);

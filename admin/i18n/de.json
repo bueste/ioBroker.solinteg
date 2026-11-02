@@ -5,7 +5,7 @@
     "hostHelp": "IP-Adresse oder Hostname des Solinteg-Wechselrichters (bzw. Modbus TCP/RTU-Gateways).",
     "port": "Port",
     "portHelp": "Modbus-TCP-Port, üblicherweise 502.",
-    "unitId": "Unit ID",
+    "unitId": "Unit-ID",
     "unitIdHelp": "Modbus-Unit-ID des Wechselrichters. Standard 255 (Solinteg MHT-Wechselrichter über Modbus TCP). Gültiger Bereich: 0-255.",
     "requestTimeout": "Timeout pro Anfrage (s)",
     "requestTimeoutHelp": "Timeout für eine einzelne Modbus-Anfrage, in Sekunden.",

@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "solinteg",
-        "version": "0.1.9",
+        "version": "0.1.10",
         "news": {
+            "0.1.10": {
+                "en": "Fix: writes to the ems.* states are now delivered to the adapter (they were never subscribed, so every write was ignored). Polling schedules each cycle only after the previous one has finished (setTimeout instead of setInterval) and delays reconnects after repeated errors.",
+                "de": "Fix: Schreibzugriffe auf die ems.*-States kommen jetzt im Adapter an (sie waren nie abonniert, daher wurde jeder Schreibzugriff ignoriert). Das Polling plant jeden Zyklus erst nach Ende des vorherigen (setTimeout statt setInterval) und verzögert Neuverbindungen nach wiederholten Fehlern.",
+                "ru": "Исправление: записи в состояния ems.* теперь доходят до адаптера (подписки не было, поэтому любая запись игнорировалась). Опрос планирует каждый цикл только после завершения предыдущего (setTimeout вместо setInterval) и задерживает переподключения после повторных ошибок.",
+                "pt": "Correção: as escritas nos estados ems.* agora chegam ao adaptador (nunca estavam subscritos, por isso todas as escritas eram ignoradas). A leitura periódica agenda cada ciclo só depois de o anterior terminar (setTimeout em vez de setInterval) e atrasa as religações após erros repetidos.",
+                "nl": "Fix: schrijfacties naar de ems.*-statussen bereiken de adapter nu (ze waren nooit geabonneerd, dus elke schrijfactie werd genegeerd). De polling plant elke cyclus pas na afloop van de vorige (setTimeout in plaats van setInterval) en vertraagt herverbindingen na herhaalde fouten.",
+                "fr": "Correction : les écritures sur les états ems.* parviennent désormais à l'adaptateur (ils n'étaient jamais abonnés, donc chaque écriture était ignorée). L'interrogation ne planifie chaque cycle qu'une fois le précédent terminé (setTimeout au lieu de setInterval) et retarde les reconnexions après des erreurs répétées.",
+                "it": "Correzione: le scritture sugli stati ems.* ora raggiungono l'adattatore (non erano mai sottoscritti, quindi ogni scrittura veniva ignorata). Il polling pianifica ogni ciclo solo al termine del precedente (setTimeout invece di setInterval) e ritarda le riconnessioni dopo errori ripetuti.",
+                "es": "Corrección: las escrituras en los estados ems.* ahora llegan al adaptador (nunca estuvieron suscritos, por lo que toda escritura se ignoraba). El sondeo programa cada ciclo solo cuando termina el anterior (setTimeout en lugar de setInterval) y retrasa las reconexiones tras errores repetidos.",
+                "pl": "Poprawka: zapisy do stanów ems.* docierają teraz do adaptera (nigdy nie były subskrybowane, więc każdy zapis był ignorowany). Odpytywanie planuje każdy cykl dopiero po zakończeniu poprzedniego (setTimeout zamiast setInterval) i opóźnia ponowne połączenia po powtarzających się błędach.",
+                "uk": "Виправлення: записи в стани ems.* тепер доходять до адаптера (підписки не було, тому кожен запис ігнорувався). Опитування планує кожен цикл лише після завершення попереднього (setTimeout замість setInterval) і затримує перепідключення після повторних помилок.",
+                "zh-cn": "修复：写入 ems.* 状态的操作现在会送达适配器（此前从未订阅这些状态，因此所有写入都被忽略）。轮询仅在上一周期结束后才安排下一周期（使用 setTimeout 而非 setInterval），并在重复出错后延迟重新连接。"
+            },
             "0.1.9": {
                 "en": "Type checking added (typed register map, Modbus client and adapter class). A value that is neither a number nor a boolean written to a writable state is now rejected instead of being written as 0.",
                 "de": "Typprüfung hinzugefügt (typisierte Registerliste, Modbus-Client und Adapterklasse). Ein Wert, der weder Zahl noch Boolean ist, wird beim Schreiben auf einen beschreibbaren State jetzt abgewiesen statt als 0 geschrieben.",
@@ -80,19 +93,6 @@
                 "pl": "Poprawka: usunięto nieaktualne limity min/max z istniejących stanów, które powodowały ostrzeżenia o przekroczeniu zakresu przy starcie.",
                 "uk": "Виправлення: видалено застарілі межі min/max в існуючих станів, які спричиняли попередження про вихід за діапазон під час запуску.",
                 "zh-cn": "修复：移除了现有状态中过时的最小/最大限值，这些限值会在启动时引发超出范围的警告。"
-            },
-            "0.1.3": {
-                "en": "Default Modbus unit ID is now 255. All registers verified on real hardware; fixes for scaling, range checks and the off-grid switch; firmware shown as text; new states for AC generation, phase temperatures, flags, backup power and EMS settings.",
-                "de": "Standard-Modbus-Unit-ID ist jetzt 255. Alle Register an echter Hardware geprüft; Korrekturen bei Skalierung, Bereichsprüfung und Off-Grid-Schalter; Firmware als Text; neue States für AC-Erzeugung, Phasentemperaturen, Flags, Backup-Leistung und EMS-Einstellungen.",
-                "ru": "Идентификатор устройства Modbus по умолчанию теперь 255. Все регистры проверены на реальном оборудовании; исправлены масштабирование, проверка диапазонов и переключатель off-grid; прошивка отображается текстом; новые состояния для AC-генерации, температур фаз, флагов, резервной мощности и настроек EMS.",
-                "pt": "O ID de unidade Modbus predefinido é agora 255. Todos os registos verificados em hardware real; correções de escala, verificação de intervalos e do interruptor off-grid; firmware apresentado como texto; novos estados para geração CA, temperaturas de fase, flags, potência de backup e definições EMS.",
-                "nl": "Standaard Modbus-unit-ID is nu 255. Alle registers gecontroleerd op echte hardware; fixes voor schaling, bereikcontrole en de off-grid-schakelaar; firmware als tekst; nieuwe statussen voor AC-opbrengst, fasetemperaturen, vlaggen, backupvermogen en EMS-instellingen.",
-                "fr": "L'ID d'unité Modbus par défaut est désormais 255. Tous les registres vérifiés sur du matériel réel ; corrections de la mise à l'échelle, du contrôle des plages et de l'interrupteur hors réseau ; firmware affiché en texte ; nouveaux états pour la production AC, les températures de phase, les indicateurs, la puissance de secours et les réglages EMS.",
-                "it": "L'ID unità Modbus predefinito è ora 255. Tutti i registri verificati su hardware reale; correzioni di scala, controllo degli intervalli e interruttore off-grid; firmware mostrato come testo; nuovi stati per generazione AC, temperature di fase, flag, potenza di backup e impostazioni EMS.",
-                "es": "El ID de unidad Modbus predeterminado es ahora 255. Todos los registros verificados en hardware real; correcciones de escala, comprobación de rangos e interruptor off-grid; firmware mostrado como texto; nuevos estados de generación CA, temperaturas de fase, indicadores, potencia de respaldo y ajustes EMS.",
-                "pl": "Domyślny identyfikator jednostki Modbus to teraz 255. Wszystkie rejestry sprawdzono na prawdziwym sprzęcie; poprawki skalowania, kontroli zakresów i przełącznika off-grid; oprogramowanie sprzętowe jako tekst; nowe stany dla generacji AC, temperatur faz, flag, mocy zasilania awaryjnego i ustawień EMS.",
-                "uk": "Ідентифікатор пристрою Modbus за замовчуванням тепер 255. Усі регістри перевірено на реальному обладнанні; виправлено масштабування, перевірку діапазонів і перемикач off-grid; прошивка відображається текстом; нові стани для AC-генерації, температур фаз, прапорців, резервної потужності та налаштувань EMS.",
-                "zh-cn": "默认 Modbus 单元 ID 现为 255。所有寄存器均已在真实硬件上验证；修复了缩放、范围检查和离网开关；固件以文本显示；新增交流发电、相温度、标志、备用电源功率和 EMS 设置的状态。"
             }
         },
         "titleLang": {
@@ -121,8 +121,23 @@
             "uk": "Зчитує дані PV, мережі/лічильника та батареї гібридних інверторів Solinteg (серія MHT та сумісні з INTEG-M ребрендинги, як-от Wattsonic і M-TEC Energy Butler) з будь-якою підключеною батареєю (наприклад, Dyness STACK100) через локальний Modbus TCP - хмара не потрібна.",
             "zh-cn": "通过本地 Modbus TCP 读取 Solinteg 混合逆变器（MHT 系列及兼容 INTEG-M 的贴牌产品，如 Wattsonic 和 M-TEC Energy Butler）的光伏、电网/电表和电池数据，可连接任意电池（如 Dyness STACK100），无需云服务。"
         },
-        "authors": ["Stefan Bühler <iobroker@mailcarrier.ch>"],
-        "keywords": ["solinteg", "wattsonic", "m-tec", "dyness", "mht", "stack100", "modbus", "hybrid", "inverter", "solar", "battery", "pv"],
+        "authors": [
+            "Stefan Bühler <iobroker@mailcarrier.ch>"
+        ],
+        "keywords": [
+            "solinteg",
+            "wattsonic",
+            "m-tec",
+            "dyness",
+            "mht",
+            "stack100",
+            "modbus",
+            "hybrid",
+            "inverter",
+            "solar",
+            "battery",
+            "pv"
+        ],
         "licenseInformation": {
             "type": "free",
             "license": "MIT"
@@ -142,8 +157,16 @@
         "adminUI": {
             "config": "json"
         },
-        "dependencies": [{ "js-controller": ">=6.0.11" }],
-        "globalDependencies": [{ "admin": ">=7.6.20" }]
+        "dependencies": [
+            {
+                "js-controller": ">=6.0.11"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=7.6.20"
+            }
+        ]
     },
     "native": {
         "host": "",
@@ -159,7 +182,9 @@
         {
             "_id": "info",
             "type": "channel",
-            "common": { "name": "Information" },
+            "common": {
+                "name": "Information"
+            },
             "native": {}
         },
         {

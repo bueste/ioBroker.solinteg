@@ -26,12 +26,16 @@ class Solinteg extends utils.Adapter {
         // Placeholder (never connected) so that this.modbus is always a ModbusClient; onReady()
         // replaces it with the configured one.
         this.modbus = new ModbusClient({ host: "", port: 502, unitId: 255 });
-        this.fastTimer = null;
-        this.slowTimer = null;
+        this.pollTimer = null;
+        this.unloaded = false;
+        this.fastIntervalMs = 5000;
+        this.slowIntervalMs = 30000;
+        this.lastSlowPoll = 0;
         this.fastBlocks = [];
         this.slowBlocks = [];
         this.consecutiveErrors = 0;
-        this.polling = false;
+        this.connectFailures = 0;
+        this.reconnectNotBefore = 0;
     }
 
     async onReady() {
@@ -58,6 +62,10 @@ class Solinteg extends utils.Adapter {
         );
 
         await this._ensureObjects();
+
+        // Without this js-controller never delivers state changes, so writes to the EMS control
+        // states would be dropped silently.
+        await this.subscribeStatesAsync("ems.*");
 
         this.fastBlocks = buildBlocks(
             registers.filter((def) => def.group === "fast"),
@@ -93,20 +101,14 @@ class Solinteg extends utils.Adapter {
             );
         }
 
+        this.fastIntervalMs = fastIntervalSec * 1000;
+        this.slowIntervalMs = slowIntervalSec * 1000;
+
         await this._connectWithRetry();
 
-        this.fastTimer = this.setInterval(
-            () => this._pollSafe("fast"),
-            fastIntervalSec * 1000,
-        );
-        this.slowTimer = this.setInterval(
-            () => this._pollSafe("slow"),
-            slowIntervalSec * 1000,
-        );
-
-        // Run one slow poll immediately so diagnostics/device info populate right away
-        // instead of waiting a full slow-poll interval.
-        this._pollSafe("slow");
+        // The first cycle also runs the slow poll (lastSlowPoll is 0), so diagnostics/device info
+        // populate right away instead of after a full slow-poll interval.
+        await this._pollCycle();
     }
 
     /**
@@ -171,6 +173,9 @@ class Solinteg extends utils.Adapter {
     }
 
     async _connectWithRetry() {
+        if (Date.now() < this.reconnectNotBefore) {
+            return;
+        }
         try {
             // TCP-level connect only. info.connection / lastError / consecutiveErrors are
             // deliberately NOT touched here: a device can accept the TCP handshake on port
@@ -179,31 +184,45 @@ class Solinteg extends utils.Adapter {
             // actually succeeded" - see _poll(). Resetting the error counter here would
             // also defeat the reconnect backoff, since every reconnect would zero it.
             await this.modbus.connect();
+            this.connectFailures = 0;
         } catch (error) {
+            this.connectFailures++;
+            this.reconnectNotBefore =
+                Date.now() +
+                Math.min(MAX_BACKOFF_SEC, this.connectFailures * 5) * 1000;
             await this.setStateAsync("info.connection", false, true);
             await this.setStateAsync("info.lastError", error.message, true);
             this.log.warn(
-                `Modbus connect failed: ${error.message}. Will retry on next poll.`,
+                `Modbus connect failed: ${error.message}. Will retry on a later poll.`,
             );
         }
     }
 
     /**
-     * @param {"fast"|"slow"} group
+     * One poll cycle: the fast group every time, the slow group when its interval has elapsed. The
+     * next cycle is scheduled only after this one has finished (setTimeout, not setInterval), so
+     * cycles can never overlap or pile up, however long requests or reconnects take.
      */
-    async _pollSafe(group) {
-        if (this.polling) {
-            // Previous poll (fast or slow) still running - skip this tick rather than overlap requests
-            // on the same TCP connection.
+    async _pollCycle() {
+        if (this.unloaded) {
             return;
         }
-        this.polling = true;
         try {
-            await this._poll(group);
+            await this._poll("fast");
+            if (Date.now() - this.lastSlowPoll >= this.slowIntervalMs) {
+                await this._poll("slow");
+                if (this.modbus.connected) {
+                    this.lastSlowPoll = Date.now();
+                }
+            }
         } catch (error) {
             await this._handlePollError(error);
-        } finally {
-            this.polling = false;
+        }
+        if (!this.unloaded) {
+            this.pollTimer = this.setTimeout(
+                () => this._pollCycle(),
+                this.fastIntervalMs,
+            );
         }
     }
 
@@ -262,7 +281,7 @@ class Solinteg extends utils.Adapter {
             this.log.warn(
                 `Too many consecutive errors, reconnecting in ${backoffSec}s.`,
             );
-            this.setTimeout(() => this._connectWithRetry(), backoffSec * 1000);
+            this.reconnectNotBefore = Date.now() + backoffSec * 1000;
         }
     }
 
@@ -320,11 +339,10 @@ class Solinteg extends utils.Adapter {
 
     onUnload(callback) {
         try {
-            if (this.fastTimer) {
-                this.clearInterval(this.fastTimer);
-            }
-            if (this.slowTimer) {
-                this.clearInterval(this.slowTimer);
+            this.unloaded = true;
+            if (this.pollTimer) {
+                this.clearTimeout(this.pollTimer);
+                this.pollTimer = null;
             }
             if (this.modbus) {
                 this.modbus.close();

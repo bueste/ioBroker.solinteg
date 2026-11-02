@@ -167,6 +167,12 @@ Pull requests are welcome, especially to verify/correct register addresses again
     ### **WORK IN PROGRESS**
 -->
 
+### 0.1.10 (2026-11-02)
+
+- Fix: the writable `ems.*` states were never subscribed, so every write to them was ignored. The adapter now subscribes to `ems.*` on start.
+- Polling: each cycle is scheduled with `setTimeout` after the previous one has finished (was `setInterval`), so cycles cannot overlap or pile up when the inverter answers slowly. Reconnects after repeated errors now really wait for the backoff time.
+- German label of the Unit ID field.
+
 ### 0.1.9 (2026-10-05)
 
 - Type checking: `npm run check` (tsc with JSDoc types, `tsconfig.json`, `adapter-config.d.ts`) now runs in CI; the register map, the Modbus client and the adapter class are typed.
